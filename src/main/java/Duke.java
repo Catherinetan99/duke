@@ -1,3 +1,4 @@
+import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -10,11 +11,38 @@ import java.util.Date;
 public class Duke {
     private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke.txt";
     private static int count = 0;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello! I'm Duke\n"
                 + "What can I do for you?");
         ArrayList<Task> tasks = new ArrayList<>();
         DukeException errorMessage = new DukeException();
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String st;
+        while((st=br.readLine()) != null) {
+            String[] phrase = st.split("\\[");
+            boolean isDone = false;
+            if (phrase[2].contains("✓")) {
+                isDone = true;
+            }
+            String description = phrase[2].substring(3);
+            if (phrase[1].startsWith("T")) {
+                Todo todo = new Todo(description, isDone);
+                tasks.add(todo);
+            } else if (phrase[1].startsWith("D")) {
+                String[] phrase2 = phrase[2].split("\\(");
+                int length = phrase2[1].length();
+                String by = phrase2[1].substring(4, length);
+                Deadline deadline = new Deadline(description, isDone, by);
+                tasks.add(deadline);
+            } else { // event
+                String[] phrase2 = phrase[2].split("\\(");
+                int length = phrase2[1].length();
+                String at = phrase2[1].substring(4, length);
+                Event event = new Event(description, isDone, at);
+                tasks.add(event);
+            }
+            count++;
+        }
         Scanner myInput = new Scanner(System.in); // Create a scanner object
         String myString = myInput.nextLine(); // Read user input
         while (!myString.equals("bye")) {
@@ -89,6 +117,14 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     errorMessage.emptyDescription(myString.substring(0, 5));
                 }
+            } else if (myString.length() >= 6 && myString.substring(0, 6).equals("delete")) {
+                int index = Integer.parseInt(myString.substring(7));
+                Task t = tasks.get(index - 1);
+                tasks.remove(t);
+                count--;
+                System.out.println("Noted. I've removed this task: \n" +
+                        t + "\n" +
+                        "Now you have " + count + " tasks in the list.");
             } else {
                 errorMessage.invalidInput();
             }
