@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Duke {
-    private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke.txt";
+    private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke\\duke.txt";
     private static int count = 0;
     public static void main(String[] args) throws IOException {
         System.out.println("Hello! I'm Duke\n"
@@ -125,6 +125,18 @@ public class Duke {
                 System.out.println("Noted. I've removed this task: \n" +
                         t + "\n" +
                         "Now you have " + count + " tasks in the list.");
+            } else if (myString.length() >= 4 && myString.substring(0, 4).equals("find")) {
+                ArrayList<Task> results = new ArrayList<>();
+                for (Task t: tasks) {
+                    if(t.getDescription().contains(myString.substring(5))) {
+                        results.add(t);
+                    }
+                }
+                System.out.println("Here are the matching tasks in your list: ");
+                for (int j = 0; j < results.size(); j++) {
+                    Task task = results.get(j);
+                    System.out.println((j + 1)+ "." + task.toString());
+                }
             } else {
                 errorMessage.invalidInput();
             }
