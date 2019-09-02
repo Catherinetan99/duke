@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Duke {
-    private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke.txt";
+    private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke\\data\\duke.txt";
     private static int count = 0;
     public static void main(String[] args) throws IOException {
         System.out.println("Hello! I'm Duke\n"
@@ -122,6 +122,7 @@ public class Duke {
                 Task t = tasks.get(index - 1);
                 tasks.remove(t);
                 count--;
+                updateFile(tasks);
                 System.out.println("Noted. I've removed this task: \n" +
                         t + "\n" +
                         "Now you have " + count + " tasks in the list.");
