@@ -21,25 +21,25 @@ public class Parser {
         String command[] = input.split(" ", 2);
         switch (command[0]) {
             case "list":
-                taskList.listTask(taskList);
+                taskList.listTask();
                 break;
             case "done":
-                taskList.markAsDone(command[1], taskList);
+                taskList.markAsDone(command[1]);
                 break;
             case "delete":
-                taskList.deleteTask(command[1], taskList);
+                taskList.deleteTask(command[1]);
                 break;
             case "find":
-                taskList.findTask(command[1], taskList);
+                taskList.findTask(command[1]);
                 break;
             case "todo":
-                taskList.addTask("todo", command[1], taskList);
+                taskList.addTask("todo", command[1]);
                 break;
             case "event":
-                taskList.addTask("event", command[1], taskList);
+                taskList.addTask("event", command[1]);
                 break;
             case "deadline":
-                taskList.addTask("deadline", command[1], taskList);
+                taskList.addTask("deadline", command[1]);
                 break;
             default:
                 DukeException errorMessage = new DukeException();

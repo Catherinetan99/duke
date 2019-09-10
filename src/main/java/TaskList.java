@@ -33,17 +33,16 @@ public class TaskList {
      * Adds task into TaskList
      * @param taskType type of task, eg todo, deadline, event
      * @param description description of task
-     * @param taskList current ArrayList of tasks
      */
-    public void addTask(String taskType, String description, TaskList taskList) {
+    public void addTask(String taskType, String description) {
         switch(taskType) {
             case "todo":
                 try {
                     Todo todo = new Todo(description);
-                    taskList.tasks.add(todo);
+                    tasks.add(todo);
                     System.out.println("Got it. I've added this task:\n"
                             + todo.toString() + "\n"
-                            + "Now you have " + taskList.tasks.size() + " tasks in the list.");
+                            + "Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     DukeException errorMessage = new DukeException();
                     errorMessage.emptyDescription("todo");
@@ -58,10 +57,10 @@ public class TaskList {
                         e.printStackTrace();
                     }
                     Deadline deadline = new Deadline(split[0], split[1]);
-                    taskList.tasks.add(deadline);
+                    tasks.add(deadline);
                     System.out.println("Got it. I've added this task:\n"
                             + deadline.toString() + "\n"
-                            + "Now you have " + taskList.tasks.size() + " tasks in the list.");
+                            + "Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     DukeException errorMessage = new DukeException();
                     errorMessage.emptyDescription("deadline");
@@ -76,10 +75,10 @@ public class TaskList {
                         e.printStackTrace();
                     }
                     Event event = new Event(split[0], split[1]);
-                    taskList.tasks.add(event);
+                    tasks.add(event);
                     System.out.println("Got it. I've added this task:\n"
                             + event.toString() + "\n"
-                            + "Now you have " + taskList.tasks.size() + " tasks in the list.");
+                            + "Now you have " + tasks.size() + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     DukeException errorMessage = new DukeException();
                     errorMessage.emptyDescription("event");
@@ -138,12 +137,11 @@ public class TaskList {
     /**
      * Deletes task from TaskList
      * @param taskNumber task number in TaskList
-     * @param taskList current TaskList
      */
-    public void deleteTask(String taskNumber, TaskList taskList) {
+    public void deleteTask(String taskNumber) {
         int taskNo = Integer.parseInt(taskNumber);
-        Task t = taskList.tasks.get(taskNo - 1);
-        taskList.tasks.remove(t);
+        Task t = tasks.get(taskNo - 1);
+        tasks.remove(t);
         System.out.println("Noted. I've removed this task: \n" +
                 t + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
@@ -152,11 +150,10 @@ public class TaskList {
     /**
      * Finds task based on keyword input in TaskList
      * @param keyword keyword to find task
-     * @param taskList current TaskList
      */
-    public void findTask (String keyword, TaskList taskList) {
+    public void findTask (String keyword) {
         ArrayList<Task> results = new ArrayList<>();
-        for (Task t: taskList.tasks) {
+        for (Task t: tasks) {
             if (t.getDescription().contains(keyword)) {
                 results.add(t);
             }
@@ -171,12 +168,11 @@ public class TaskList {
     /**
      * Marks the task as completed
      * @param taskNumber task number in TaskList
-     * @param taskList current TaskList
      */
-    public void markAsDone (String taskNumber, TaskList taskList) {
+    public void markAsDone (String taskNumber) {
         try {
             int taskNo = Integer.parseInt(taskNumber);
-            Task task = taskList.tasks.get(taskNo - 1);
+            Task task = tasks.get(taskNo - 1);
             task.markAsDone();
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("  " + task.toString());
@@ -188,12 +184,11 @@ public class TaskList {
 
     /**
      * Lists all the tasks in TaskList
-     * @param taskList current TaskList
      */
-    public void listTask (TaskList taskList) {
+    public void listTask () {
         System.out.println("Here are the tasks in your list: ");
-        for (int j = 0; j < taskList.tasks.size(); j++) {
-            Task task = taskList.tasks.get(j);
+        for (int j = 0; j < tasks.size(); j++) {
+            Task task = tasks.get(j);
             System.out.println((j + 1)+ "." + task.toString());
         }
     }

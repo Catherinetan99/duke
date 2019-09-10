@@ -1,2 +1,2 @@
-  [T][✘] water the flowers
-  [T][✘] argterag
+  [T][✓] water the flowers
+  [T][✓] argterag
