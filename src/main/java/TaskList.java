@@ -5,19 +5,37 @@ import java.util.Date;
 
 public class TaskList {
 
-    static ArrayList<Task> tasks;
+    ArrayList<Task> tasks;
 
+    /**
+     * Constructor for TaskList class
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
-    public static ArrayList<Task> getTasks() { return tasks; }
+    /**
+     * Getter for TaskList
+     * @return list of tasks in ArrayList<Task>
+     */
+    public ArrayList<Task> getTasks() { return tasks; }
 
-    public static Task getSpecificTask(int index) {
+    /**
+     * Getter for a specific task in TaskList
+     * @param index the index of the task in the ArrayList
+     * @return the task
+     */
+    public Task getSpecificTask(int index) {
         return tasks.get(index);
     }
 
-    public static void addTask(String taskType, String description, TaskList taskList) {
+    /**
+     * Adds task into TaskList
+     * @param taskType type of task, eg todo, deadline, event
+     * @param description description of task
+     * @param taskList current ArrayList of tasks
+     */
+    public void addTask(String taskType, String description, TaskList taskList) {
         switch(taskType) {
             case "todo":
                 try {
@@ -69,7 +87,13 @@ public class TaskList {
         }
     }
 
-    public static String formatDate(String date) throws ParseException {
+    /**
+     * Format input date of user
+     * @param date input date of user
+     * @return the formatted date
+     * @throws ParseException throws exception if input date is in invalid format
+     */
+    public String formatDate(String date) throws ParseException {
         SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HHmm");
         Date inputDate = new SimpleDateFormat("d/MM/yyyy HHmm").parse(date);
         String outputDate = outputFormat.format(inputDate);
@@ -111,7 +135,12 @@ public class TaskList {
         return outputDate;
     }
 
-    public static void deleteTask(String taskNumber, TaskList taskList) {
+    /**
+     * Deletes task from TaskList
+     * @param taskNumber task number in TaskList
+     * @param taskList current TaskList
+     */
+    public void deleteTask(String taskNumber, TaskList taskList) {
         int taskNo = Integer.parseInt(taskNumber);
         Task t = taskList.tasks.get(taskNo - 1);
         taskList.tasks.remove(t);
@@ -120,9 +149,14 @@ public class TaskList {
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void findTask (String keyword, TaskList taskList) {
+    /**
+     * Finds task based on keyword input in TaskList
+     * @param keyword keyword to find task
+     * @param taskList current TaskList
+     */
+    public void findTask (String keyword, TaskList taskList) {
         ArrayList<Task> results = new ArrayList<>();
-        for (Task t : taskList.tasks) {
+        for (Task t: taskList.tasks) {
             if (t.getDescription().contains(keyword)) {
                 results.add(t);
             }
@@ -134,7 +168,12 @@ public class TaskList {
         }
     }
 
-    public static void markAsDone (String taskNumber, TaskList taskList) {
+    /**
+     * Marks the task as completed
+     * @param taskNumber task number in TaskList
+     * @param taskList current TaskList
+     */
+    public void markAsDone (String taskNumber, TaskList taskList) {
         try {
             int taskNo = Integer.parseInt(taskNumber);
             Task task = taskList.tasks.get(taskNo - 1);
@@ -147,7 +186,11 @@ public class TaskList {
         }
     }
 
-    public static void listTask (TaskList taskList) {
+    /**
+     * Lists all the tasks in TaskList
+     * @param taskList current TaskList
+     */
+    public void listTask (TaskList taskList) {
         System.out.println("Here are the tasks in your list: ");
         for (int j = 0; j < taskList.tasks.size(); j++) {
             Task task = taskList.tasks.get(j);

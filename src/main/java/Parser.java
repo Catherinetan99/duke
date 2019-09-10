@@ -2,34 +2,44 @@ public class Parser {
     protected String input;
     protected TaskList taskList;
 
+    /**
+     * Constructor for Parser class
+     * @param input command input by user
+     * @param taskList list of tasks currently
+     */
     public Parser (String input, TaskList taskList) {
         this.input = input;
         this.taskList = taskList;
     }
 
+    /**
+     * Executes command input by user
+     * @param input command input by user
+     * @param taskList list of tasks currently
+     */
     public void executeCmd (String input, TaskList taskList) {
         String command[] = input.split(" ", 2);
         switch (command[0]) {
             case "list":
-                TaskList.listTask(taskList);
+                taskList.listTask(taskList);
                 break;
             case "done":
-                TaskList.markAsDone(command[1], taskList);
+                taskList.markAsDone(command[1], taskList);
                 break;
             case "delete":
-                TaskList.deleteTask(command[1], taskList);
+                taskList.deleteTask(command[1], taskList);
                 break;
             case "find":
-                TaskList.findTask(command[1], taskList);
+                taskList.findTask(command[1], taskList);
                 break;
             case "todo":
-                TaskList.addTask("todo", command[1], taskList);
+                taskList.addTask("todo", command[1], taskList);
                 break;
             case "event":
-                TaskList.addTask("event", command[1], taskList);
+                taskList.addTask("event", command[1], taskList);
                 break;
             case "deadline":
-                TaskList.addTask("deadline", command[1], taskList);
+                taskList.addTask("deadline", command[1], taskList);
                 break;
             default:
                 DukeException errorMessage = new DukeException();

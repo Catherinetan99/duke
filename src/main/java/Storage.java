@@ -4,6 +4,12 @@ public class Storage {
 
     private static final String filePath = "C:\\Users\\Catherine Tan\\IdeaProjects\\duke\\data\\duke.txt";
 
+    /**
+     * Loads file contents saved from last use of application
+     * @param filePath the location of the saved file
+     * @param taskList an empty task list to contain the tasks in the file
+     * @throws IOException throws exception if input file is invalid/cannot be accessed
+     */
     public static void loadFile (String filePath, TaskList taskList) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String st;
@@ -33,6 +39,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file with the updated contents to replace the old file
+     * @param taskList contains list of tasks currently
+     */
     public static void updateFile (TaskList taskList) {
         File f = new File(filePath);
         try {
