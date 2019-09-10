@@ -11,6 +11,12 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public static ArrayList<Task> getTasks() { return tasks; }
+
+    public static Task getSpecificTask(int index) {
+        return tasks.get(index);
+    }
+
     public static void addTask(String taskType, String description, TaskList taskList) {
         switch(taskType) {
             case "todo":
